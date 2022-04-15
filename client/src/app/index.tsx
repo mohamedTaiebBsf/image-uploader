@@ -1,14 +1,14 @@
 import React from "react";
-import GlobalStyle from "./styles";
-import Loading from "../components/loading";
+import Uploader from "../components/uploader";
+import GlobalStyle, { Container } from "./styles";
 
 function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <div>
-        <Loading />
-      </div>
+      <Container>
+        <Uploader />
+      </Container>
     </React.Fragment>
   );
 }
