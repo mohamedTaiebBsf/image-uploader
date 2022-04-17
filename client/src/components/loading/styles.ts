@@ -24,7 +24,7 @@ const loadAnimation = keyframes`
 `;
 
 const Container = styled.div`
-  max-width: 400px;
+  width: 400px;
   padding: 36px 32px 42px;
   background-color: var(--white);
   border-radius: 12px;

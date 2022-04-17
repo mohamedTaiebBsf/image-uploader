@@ -7,13 +7,15 @@ class ImageController {
   public upload = (req: express.Request, res: express.Response) => {
     this.manager.upload(req, res, function (err) {
       if (err) {
-        return res.status(400).send({ msg: err });
+        return res.status(400).send({ msg: err.message });
       } else {
         if (req.file === undefined) {
           return res.status(400).send({ msg: "Error: No File Selected!" });
         }
 
-        res.status(200).send({ msg: "Successfully Uploaded!", file: req.file });
+        res
+          .status(200)
+          .send({ msg: "Successfully Uploaded!", filename: req.file.filename });
       }
     });
   };

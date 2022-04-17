@@ -26,6 +26,11 @@ const CardHeader = styled.div`
     margin-bottom: 16px;
   }
 
+  & > h1.uploaded {
+    margin-top: 12px;
+    margin-bottom: 26px;
+  }
+
   & > p {
     font-size: 10px;
     color: rgba(79, 79, 79, 0.8);
@@ -37,20 +42,31 @@ const CardBody = styled.div`
   height: 219px;
   background-color: #f6f8fb;
   border-radius: 12px;
+  overflow: hidden;
 `;
 
-const ImagePreview = styled.div`
+const Dropzone = styled.div`
   height: 100%;
   border: 1px dashed #97bef4;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 12px;
 
   & > p {
     font-size: 12px;
     color: rgba(79, 79, 79, 0.6);
+  }
+`;
+
+const ImageUploaded = styled.div`
+  width: 100%;
+  height: 100%;
+
+  & img {
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -66,12 +82,27 @@ const ChooseFile = styled.div`
     color: rgba(79, 79, 79, 0.6);
     margin-bottom: 22px;
   }
+`;
 
-  & > button {
-    color: var(--white);
-    background-color: var(--blue);
-    padding: 8px 16px;
-    border-radius: 8px;
+const Clipboard = styled.div`
+  font-size: 8px;
+  background-color: #f6f8fb;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+
+  & span {
+    flex: 1;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & button {
+    margin-left: 5px;
   }
 `;
 
@@ -81,6 +112,8 @@ export {
   CardFooter,
   CardHeader,
   ChooseFile,
+  Clipboard,
   Container,
-  ImagePreview,
+  Dropzone,
+  ImageUploaded,
 };

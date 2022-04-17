@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background: transparent;
     cursor: pointer;
+    color: var(--white);
+    background-color: var(--blue);
+    padding: 8px 16px;
+    border-radius: 8px;
   }
 `;
 

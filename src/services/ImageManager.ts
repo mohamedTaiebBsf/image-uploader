@@ -13,10 +13,14 @@ interface FileFilter {
 
 class ImageManager {
   private uploadTo: string = "uploads";
-  private fieldName: string = "my-image";
+  private fieldName: string = "file";
 
   public get upload(): express.RequestHandler {
     return multer(this.options).single(this.fieldName);
+  }
+
+  public getTarget() {
+    return this.uploadTo;
   }
 
   private storage(): multer.StorageEngine {
@@ -59,7 +63,7 @@ class ImageManager {
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb(null, false);
+      cb(new Error("The image should be jpeg, jpg, png or gif"));
     }
   }
 
