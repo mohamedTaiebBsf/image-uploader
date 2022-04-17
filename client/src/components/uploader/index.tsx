@@ -19,11 +19,13 @@ type UploadEvent = ChangeEvent<HTMLInputElement> & DragEvent<HTMLDivElement>;
 const Uploader = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [imageLink, setImageLink] = useState<string>("");
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   const uploadHandler = async (event: UploadEvent) => {
     event.preventDefault();
+    event.stopPropagation();
     const files = event.currentTarget.files || event.dataTransfer.files;
 
     if (files) {
@@ -52,15 +54,21 @@ const Uploader = () => {
 
   const dragOverHandler = (event: DragEvent) => {
     event.preventDefault();
-    console.log("dragOver");
+    event.stopPropagation();
+
+    setIsDragOver(true);
   };
   const dragEnterHandler = (event: DragEvent) => {
     event.preventDefault();
-    console.log("dragEnter");
+    event.stopPropagation();
+
+    setIsDragOver(true);
   };
   const dragLeaveHandler = (event: DragEvent) => {
     event.preventDefault();
-    console.log("dragLeave");
+    event.stopPropagation();
+
+    setIsDragOver(false);
   };
 
   return (
@@ -75,7 +83,7 @@ const Uploader = () => {
             </h1>
             {!isUploaded && <p>File should be Jpeg, Png...</p>}
           </CardHeader>
-          <CardBody>
+          <CardBody className={isDragOver ? "drop-zone--over" : ""}>
             {!isUploaded ? (
               <Dropzone
                 onDrop={uploadHandler}

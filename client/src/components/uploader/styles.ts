@@ -37,14 +37,6 @@ const CardHeader = styled.div`
   }
 `;
 
-const CardBody = styled.div`
-  width: 100%;
-  height: 219px;
-  background-color: #f6f8fb;
-  border-radius: 12px;
-  overflow: hidden;
-`;
-
 const Dropzone = styled.div`
   height: 100%;
   border: 1px dashed #97bef4;
@@ -57,6 +49,23 @@ const Dropzone = styled.div`
   & > p {
     font-size: 12px;
     color: rgba(79, 79, 79, 0.6);
+  }
+`;
+
+const CardBody = styled.div`
+  width: 100%;
+  height: 219px;
+  background-color: #f6f8fb;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &.drop-zone--over {
+    background-color: #e0e4e9;
+
+    & ${Dropzone} {
+      cursor: not-allowed;
+      border: 2px solid var(--blue);
+    }
   }
 `;
 
