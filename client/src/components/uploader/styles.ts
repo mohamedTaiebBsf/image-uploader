@@ -14,6 +14,11 @@ const Card = styled.div`
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   letter-spacing: -0.56px;
+  position: relative;
+
+  @media (max-width: 420px) {
+    width: 90%;
+  }
 `;
 
 const CardHeader = styled.div`
@@ -63,7 +68,6 @@ const CardBody = styled.div`
     background-color: #e0e4e9;
 
     & ${Dropzone} {
-      cursor: not-allowed;
       border: 2px solid var(--blue);
     }
   }
@@ -115,6 +119,20 @@ const Clipboard = styled.div`
   }
 `;
 
+const Error = styled.div`
+  position: absolute;
+  color: var(--white);
+  background-color: #df4759;
+  padding: 8px 10px;
+  border-radius: 8px;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  font-size: 12px;
+  text-align: center;
+`;
+
 export {
   Card,
   CardBody,
@@ -124,5 +142,6 @@ export {
   Clipboard,
   Container,
   Dropzone,
+  Error,
   ImageUploaded,
 };

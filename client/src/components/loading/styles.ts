@@ -29,6 +29,10 @@ const Container = styled.div`
   background-color: var(--white);
   border-radius: 12px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 420px) {
+    width: 90%;
+  }
 `;
 
 const Title = styled.h1`

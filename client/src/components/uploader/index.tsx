@@ -11,6 +11,7 @@ import {
   Clipboard,
   Container,
   Dropzone,
+  Error,
   ImageUploaded,
 } from "./styles";
 
@@ -21,6 +22,7 @@ const Uploader = () => {
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [imageLink, setImageLink] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   const uploadHandler = async (event: UploadEvent) => {
@@ -37,12 +39,12 @@ const Uploader = () => {
 
       try {
         const response = await apiService.uploadImage(formData);
-        console.log(response.data);
         setImageLink(`${apiService.API_URL}/${response.data.filename}`);
         setIsUploaded(true);
         setTimeout(() => setLoading(false), 2000);
       } catch (err: any) {
-        console.log(err.response.data);
+        setError(err.response.data.msg);
+        setIsDragOver(false);
         setTimeout(() => setLoading(false), 2000);
       }
     }
@@ -76,6 +78,7 @@ const Uploader = () => {
       {loading && <Loading />}
       {!loading && (
         <Card>
+          {error && !isUploaded && <Error>{error}</Error>}
           <CardHeader>
             {isUploaded && <CheckMark />}
             <h1 className={isUploaded ? "uploaded" : ""}>
