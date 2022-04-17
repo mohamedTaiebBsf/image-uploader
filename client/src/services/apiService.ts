@@ -7,6 +7,13 @@ class ApiService {
     return http.post(this.apiURL + "/upload", data);
   }
 
+  public createData(file: File) {
+    let formData = new FormData();
+    formData.append("file", file);
+
+    return formData;
+  }
+
   public get API_URL() {
     return this.apiURL;
   }

@@ -28,17 +28,16 @@ const Uploader = () => {
   const uploadHandler = async (event: UploadEvent) => {
     event.preventDefault();
     event.stopPropagation();
+
     const files = event.currentTarget.files || event.dataTransfer.files;
 
     if (files) {
       setLoading(true);
 
-      const file = files[0];
-      let formData = new FormData();
-      formData.append("file", file);
-
       try {
-        const response = await apiService.uploadImage(formData);
+        const response = await apiService.uploadImage(
+          apiService.createData(files[0])
+        );
         setImageLink(`${apiService.API_URL}/${response.data.filename}`);
         setIsUploaded(true);
         setTimeout(() => setLoading(false), 2000);
@@ -60,12 +59,14 @@ const Uploader = () => {
 
     setIsDragOver(true);
   };
+
   const dragEnterHandler = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
     setIsDragOver(true);
   };
+
   const dragLeaveHandler = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
