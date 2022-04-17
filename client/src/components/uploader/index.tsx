@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, DragEvent, useRef, useState } from "react";
 import apiService from "../../services/apiService";
 import CheckMark from "../checkMark";
 import Loading from "../loading";
@@ -14,18 +14,25 @@ import {
   ImageUploaded,
 } from "./styles";
 
+type UploadEvent = ChangeEvent<HTMLInputElement> & DragEvent<HTMLDivElement>;
+
 const Uploader = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [imageLink, setImageLink] = useState<string>("");
   const imageRef = useRef<HTMLInputElement | null>(null);
 
-  const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+  const uploadHandler = async (event: UploadEvent) => {
+    event.preventDefault();
+    const files = event.currentTarget.files || event.dataTransfer.files;
+
+    if (files) {
       setLoading(true);
-      const file = event.currentTarget.files[0];
+
+      const file = files[0];
       let formData = new FormData();
       formData.append("file", file);
+
       try {
         const response = await apiService.uploadImage(formData);
         console.log(response.data);
@@ -43,6 +50,19 @@ const Uploader = () => {
     navigator.clipboard.writeText(imageLink);
   };
 
+  const dragOverHandler = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("dragOver");
+  };
+  const dragEnterHandler = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("dragEnter");
+  };
+  const dragLeaveHandler = (event: DragEvent) => {
+    event.preventDefault();
+    console.log("dragLeave");
+  };
+
   return (
     <Container>
       {loading && <Loading />}
@@ -57,7 +77,12 @@ const Uploader = () => {
           </CardHeader>
           <CardBody>
             {!isUploaded ? (
-              <Dropzone>
+              <Dropzone
+                onDrop={uploadHandler}
+                onDragEnter={dragEnterHandler}
+                onDragLeave={dragLeaveHandler}
+                onDragOver={dragOverHandler}
+              >
                 <img src="/assets/preview.svg" alt="preview" />
                 <p>Drag &amp; Drop your image here</p>
               </Dropzone>
@@ -74,7 +99,7 @@ const Uploader = () => {
                 <input
                   type="file"
                   ref={imageRef}
-                  onChange={handleUpload}
+                  onChange={uploadHandler}
                   name="file"
                   id="imageToUpload"
                   hidden
