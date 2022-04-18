@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import PurgeMiddleware from "../middlewares/purge";
 import ImageManager from "../services/ImageManager";
 
 class App {
@@ -20,6 +21,7 @@ class App {
   private initializeMiddlewares() {
     this.app.use(cors());
     this.app.use(express.static(new ImageManager().getTarget()));
+    this.app.use(new PurgeMiddleware().purge);
   }
 
   private initializeRoutes(routers: express.Router[]) {

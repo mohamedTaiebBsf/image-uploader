@@ -1,6 +1,6 @@
 {
   "name": "image-uploader",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Image uploader challenge",
   "main": "build/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/multer": "^1.4.7",
+    "@types/rimraf": "^3.0.2",
     "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "tsc-watch": "^5.0.3",
